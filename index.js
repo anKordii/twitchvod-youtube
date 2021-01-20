@@ -38,7 +38,8 @@ async function downloadVodURI(writer, playlist, p) {
     console.log(`
 Location: ${path.resolve(process.cwd(), writer.path)}
 Quality: ${playlist.attributes.RESOLUTION.height}p (${playlist.attributes.VIDEO})
-Duration: ${humanizeDuration(dayjs.duration(seconds * 1000))}`);
+Duration: ${humanizeDuration(dayjs.duration(seconds * 1000))}
+`);
 
   const startIndex = playlistM3U.discontinuityStarts.length
     ? playlistM3U.discontinuityStarts[0]
