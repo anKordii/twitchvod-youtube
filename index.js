@@ -56,10 +56,9 @@ Duration: ${humanizeDuration(dayjs.duration(seconds * 1000))}
         }) Until the end: ${left.toFixed(2)} min`
       );
     await downloadChunk(writer, `${playlistBaseURL}/${segment.uri}`);
-    //break;
   }
      
-  writer.end(alegowienko(p));
+  writer.end(() => youtubeuploader(p));
 }
 
 async function downloadChunk(w, downloadUrl) {
@@ -168,7 +167,5 @@ async function downloadTwitchVod(vodIdOrURL, k = {}) {
     }
   }
 }
-function alegowienko(o){
-  youtubeuploader(o);
-}
+
 module.exports = downloadTwitchVod;
