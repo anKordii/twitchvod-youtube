@@ -21,6 +21,17 @@ function humanizeDuration(duration) {
   }
   return str;
 }
+function secondsToHms(d) {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor(d % 3600 / 60);
+  var s = Math.floor(d % 3600 % 60);
+
+  var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+  var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+  var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+  return hDisplay + mDisplay + sDisplay; 
+}
 
 async function downloadVodURI(writer, playlist, p) {
   // segments
@@ -47,13 +58,15 @@ Duration: ${humanizeDuration(dayjs.duration(seconds * 1000))}
   for (let i = startIndex; i < segments.length; i++) {
     const segment = segments[i];
     var o = segments.length - i;
-    var left = o / 60;
+
+    var left = secondsToHms(o);
+
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
       process.stdout.write(
         `Progress: ${Math.round((i * 100) / segments.length)}% (${i}/${
           segments.length - 1
-        }) Until the end: ${left.toFixed(2)} min`
+        }) Until the end: ${left}`
       );
     await downloadChunk(writer, `${playlistBaseURL}/${segment.uri}`);
   }
