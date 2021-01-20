@@ -57,7 +57,7 @@ Duration: ${humanizeDuration(dayjs.duration(seconds * 1000))}`);
     await downloadChunk(writer, `${playlistBaseURL}/${segment.uri}`);
   }
      
-  writer.end(youtubeuploader(p));
+  writer.end(() => youtubeuploader(p));
 }
 
 async function downloadChunk(w, downloadUrl) {
